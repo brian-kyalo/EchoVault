@@ -76,6 +76,7 @@ See [docs/DEPENDENCIES.md](docs/DEPENDENCIES.md).
 - [Architecture](docs/ARCHITECTURE.md)
 - [Project map](docs/PROJECT_MAP.md)
 - [Learning path](docs/LEARNING_PATH.md)
+- [Storage design proposal](docs/STORAGE_DESIGN.md)
 
 ## Renaming
 

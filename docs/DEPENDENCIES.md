@@ -31,3 +31,8 @@ Future additions include authenticated cryptography, secure storage,
 SQLite/Drift, device authentication, and offline speech components.
 These are candidates, not installed or verified dependencies. Stable versions,
 platform requirements, maintenance, and licenses must be checked when selected.
+
+The [device-only storage proposal](STORAGE_DESIGN.md) selects `cryptography`,
+`flutter_secure_storage`, and `sqflite` for the next milestone, subject to
+dependency resolution and native validation. Its reviewed versions and licenses
+are recorded separately from the installed dependencies above.
