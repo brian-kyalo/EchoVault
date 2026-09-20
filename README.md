@@ -67,7 +67,9 @@ formatting, analysis, tests, and pull request conventions.
 Flutter provides the UI, `flutter_bloc` connects explicit events and states to
 widgets, and `bloc_concurrency` serializes repository operations. `flutter_test`
 provides testing and `flutter_lints` supplies analysis rules. Persistence
-dependencies will be selected when encrypted storage is introduced.
+is not connected yet. `cryptography` and `flutter_secure_storage` support isolated
+encryption/key services with unit tests; journal entries still remain unencrypted
+in memory. Database integration and native key lifecycle checks are pending.
 
 See [docs/DEPENDENCIES.md](docs/DEPENDENCIES.md).
 

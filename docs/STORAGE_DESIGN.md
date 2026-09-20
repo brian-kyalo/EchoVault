@@ -1,7 +1,8 @@
 # Device-only encrypted storage design
 
 Tracking: [issue #3](https://github.com/brian-kyalo/EchoVault/issues/3).
-Status: proposal for review; no storage implementation or packages added.
+Status: design under review. Crypto/key services are implemented separately
+under issue #4 but are not connected to the journal; SQLite is not installed.
 The owner agreed to a device-only learning milestone with recovery deferred.
 Use sample writing until recovery and security behavior have been verified.
 
@@ -48,10 +49,11 @@ Package documentation reviewed on 2026-09-20:
 | flutter_secure_storage | 11.2.0 | BSD-3-Clause | Android protected storage and iOS Keychain |
 | sqflite | 2.4.4 | BSD-2-Clause | Android/iOS SQLite transactions and schema versioning |
 
-These are design selections, not resolved or installed dependencies. Verify
-SDK constraints, changelogs, open security issues, transitive dependencies, and
-native builds before committing additions. Keep Flutter 3.44.7 / Dart 3.12.2.
-The reviewed secure-storage documentation requires Android API 23 or later.
+The crypto and secure-storage versions above now resolve with Flutter 3.44.7 /
+Dart 3.12.2; sqflite remains a design selection, not an installed dependency.
+Review native builds and upstream security advisories before production use.
+The resolved secure-storage 11.x changelog requires Android API 24 or later,
+despite the package overview still describing API 23 support.
 Native iOS deployment requirements and entitlements need verification on macOS.
 
 Choose sqflite over Drift for this small repository: no generated query layer
@@ -126,8 +128,11 @@ feature in this milestone. Loss of the device, database, or key may permanently
 lose entries. Uninstall/reinstall is not a recovery strategy; iOS Keychain items
 can outlive the app, while the app database may be removed.
 
-On Android use the plugin's maintained default protected-storage configuration,
-not deprecated encryptedSharedPreferences options copied from older tutorials.
+On Android use the plugin's maintained default cipher choices, with
+`resetOnError: false`, `migrateWithBackup: true`, and a stable dedicated namespace.
+The default reset-on-error behavior is destructive and must not be enabled.
+Migration backup here means local encrypted plugin copies, not a recovery or
+cloud-backup feature. Do not use deprecated encryptedSharedPreferences options.
 Disable backup and explicitly exclude vault data and secure-storage preferences
 from applicable legacy backup and Android 12+ cloud/device-transfer rules.
 Do not assume allowBackup=false alone prevents every manufacturer's transfer.
@@ -167,6 +172,23 @@ existing session preview's contents. Deleting a row is logical deletion, not
 guaranteed forensic erasure of flash storage or historical encrypted pages.
 
 ## Verification and delivery
+
+The initial issue #4 implementation includes a versioned byte envelope,
+context-bound AES-GCM, serialized key loading with write/readback verification,
+and a native secure-storage adapter. It does not initialize a vault or use the
+adapter at app startup. Use exactly one key-service instance per vault in the
+future bootstrap; its queue coordinates that instance, not multiple isolates
+or independent service objects. Only pass `vaultExists: false` after establishing
+that no database/header/sidecars exist; unreadable or incomplete storage is not
+an absent vault. Header validation and JSON payload validation belong to the
+repository implementation, not the byte cipher.
+
+Unit tests cover library known-answer data, envelope authentication/validation,
+key service failure paths, and adapter option serialization. These tests do not
+prove Android Keystore/iOS Keychain durability, native error behavior, backup
+exclusion, interrupted database creation, or real-device restart recovery.
+Issue #4 remains open for native integration evidence and outstanding key-lifecycle
+checks; issues #5/#6 cover repository and broader persistence verification.
 
 - Issue #4: crypto known-answer/round-trip tests, Unicode, wrong keys, nonce/tag/
   ciphertext/AAD tampering, malformed envelopes, and version rejection. Test
