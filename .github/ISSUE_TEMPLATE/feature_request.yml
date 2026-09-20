@@ -1,0 +1,39 @@
+name: Feature or maintenance task
+description: Propose a focused, testable improvement.
+body:
+  - type: markdown
+    attributes:
+      value: Use sample data only. Choose a milestone after creating the issue.
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Outcome
+      description: What should change, for whom, and why?
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope and exclusions
+      description: List what belongs in this task and what is deliberately deferred.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: Use a checklist of observable, testable outcomes.
+    validations:
+      required: true
+  - type: textarea
+    id: verification
+    attributes:
+      label: Verification plan
+      description: Relevant automated tests and manual device checks.
+    validations:
+      required: true
+  - type: textarea
+    id: privacy
+    attributes:
+      label: Privacy and dependencies
+      description: Note sensitive data handling, package choices, and blocking issues.

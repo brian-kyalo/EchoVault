@@ -1,0 +1,43 @@
+name: Bug report
+description: Report a reproducible problem using sample data only.
+title: "bug: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not include personal journal entries, credentials, or signing keys.
+        Report security vulnerabilities privately, not through this public form.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What went wrong?
+      description: Describe the actual behavior and what you expected instead.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Provide numbered steps and synthetic sample content.
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: App commit, Flutter version, OS, and device or emulator.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Sanitized evidence
+      description: Optional screenshots or relevant error output with private data removed.
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: What observable behavior would demonstrate that this is fixed?
+    validations:
+      required: true
