@@ -15,6 +15,8 @@ SDK upgrade. Exact versions are recorded in the application lockfile.
 | flutter | Flutter SDK | Widgets, Material UI, theme, navigation, accessibility | BSD-3-Clause |
 | flutter_bloc | `^9.1.1` (resolved 9.1.1) | BLoC providers, builders, and listeners for the journal | MIT |
 | bloc_concurrency | `^0.3.0` (resolved 0.3.0) | Sequential handling across load/save/delete events | MIT |
+| cryptography | `^2.9.0` (resolved 2.9.0) | Tested AES-256-GCM envelope and random key generation; not yet connected to journal storage | Apache-2.0 |
+| flutter_secure_storage | `^11.2.0` (resolved 11.2.0) | Device key-store adapter with reset disabled; native lifecycle verification pending | BSD-3-Clause |
 | flutter_test | Flutter SDK, development only | Render widgets and test user interactions without a device | BSD-3-Clause |
 | flutter_lints | Existing starter constraint `^6.0.0`, development only | Shared Dart/Flutter analysis rules | BSD-3-Clause |
 
@@ -27,12 +29,14 @@ Dependency resolution succeeded. Pub reported newer versions of
 seven transitive packages outside the current constraints; that is not a build
 failure and is not a reason to override SDK-compatible constraints.
 
-Future additions include authenticated cryptography, secure storage,
-SQLite/Drift, device authentication, and offline speech components.
-These are candidates, not installed or verified dependencies. Stable versions,
-platform requirements, maintenance, and licenses must be checked when selected.
+Future additions include SQLite, device authentication, and offline speech
+components. These are not installed dependencies. Stable versions, platform
+requirements, maintenance, and licenses must be checked when selected.
 
 The [device-only storage proposal](STORAGE_DESIGN.md) selects `cryptography`,
-`flutter_secure_storage`, and `sqflite` for the next milestone, subject to
-dependency resolution and native validation. Its reviewed versions and licenses
-are recorded separately from the installed dependencies above.
+`flutter_secure_storage`, and `sqflite`. The first two now resolve on the existing
+SDK; sqflite is deferred to the repository issue. flutter_secure_storage 11.x
+requires Android API 24 according to its changelog. Inspect the native build and
+platform behavior rather than assuming successful pub resolution proves support.
+It adds federated platform and FFI dependencies recorded in pubspec.lock; those
+do not expand EchoVault's supported product targets beyond Android/iOS.
