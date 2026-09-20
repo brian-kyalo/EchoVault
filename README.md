@@ -53,6 +53,15 @@ Use Flutter's **Run > Start Debugging (F5)** in VS Code, not Code Runner's
 - `flutter analyze` — static analysis.
 - `flutter test` — BLoC/repository and widget tests.
 
+## Contributing
+
+Work is tracked with [GitHub issues](https://github.com/brian-kyalo/EchoVault/issues)
+and [milestones](https://github.com/brian-kyalo/EchoVault/milestones). Changes use
+issue-linked Conventional Commits and focused pull requests into `main`.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for branch naming, commit examples,
+verification commands, and privacy requirements. GitHub Actions checks
+formatting, analysis, tests, and pull request conventions.
+
 ## Dependencies
 
 Flutter provides the UI, `flutter_bloc` connects explicit events and states to
